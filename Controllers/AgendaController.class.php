@@ -149,7 +149,7 @@
                 if($_POST)
                 {
                         $agendaDAO = new AgendaDAO($this->param);
-                        $ret = $agendaDAO->buscar_dados_pdf(new Agenda);
+                        $ret = $agendaDAO->buscar_todas_agendas();
                         if(count($ret) > 0)
                         {
                             require_once "Views/listar_agenda.php";

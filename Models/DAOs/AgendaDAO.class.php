@@ -75,21 +75,5 @@
                 die("Erro ao inserir agenda id " . $agenda->getIdAgenda());
             }
         }
-
-        public function buscar_dados_pdf($curso)
-		{
-			$sql = "SELECT * FROM agenda";
-			try
-			{
-				$stm = $this->db->prepare($sql);
-				$stm->bindValue(1, $curso->getId_curso());
-				$stm->execute();
-				return $stm->fetchAll(PDO::FETCH_OBJ);
-			}
-			catch(PDOException $e)
-			{
-				die("Problema ao buscar dados para o pdf");
-			}
-		}
     }
 ?>
