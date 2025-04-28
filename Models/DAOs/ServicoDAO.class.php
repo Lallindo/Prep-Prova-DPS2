@@ -122,5 +122,24 @@
                 return $this->buscar_ultimo_servico_inserido();
             }
         }
+
+        public function buscar_dados_grafico()
+		{
+			$sql = "SELECT t.descritivo AS tipo, COUNT(*) AS quantidade 
+            FROM agenda a
+            INNER JOIN servico s ON a.idServico = s.idServico
+            INNER JOIN tipo t ON s.idTipo = t.idTipo
+            GROUP BY t.descritivo";
+			try
+			{
+				$stm = $this->db->prepare($sql);
+				$stm->execute();
+				return $stm->fetchAll(PDO::FETCH_OBJ);
+			}
+			catch(PDOException $e)
+			{
+				return "Problema ao buscar dados para o gráfico";
+			}
+		}
     }
 ?>

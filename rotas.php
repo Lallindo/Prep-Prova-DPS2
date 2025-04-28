@@ -34,4 +34,6 @@
 	$route->get("/inserir", [AgendaController::class, "inserir"]);
 	$route->post("/inserir", [AgendaController::class, "inserir"]);
 	$route->get("/teste", [AgendaController::class,"teste"]);
+	$route->get("/grafico", [AgendaController::class,"graficoPizza"]);
+	$route->get("/grafico-dados", [AgendaController::class,"graficoDados"]);
 ?>

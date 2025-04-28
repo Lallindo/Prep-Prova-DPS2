@@ -1,45 +1,35 @@
-<!doctype html>
-<html>
-	<head>
-		<title>Agendas</title>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<h1>Lista de Agendas</h1>
-		<br>
-		<table border="1">
-			<tr>
-				<th>Agenda</th>
-				<th>Data</th>
-				<th>Horário</th>
-				<th>Serviço</th>
-				<th>Desc. Servico</th>
-				<th>Preço</th>
-				<th>Tipo</th>
-				<th>Desc. Tipo</th>
-				<th>Cliente</th>
-				<th>Nome</th>
-				<th>Celular</th>
-			</tr>
-			<?php
-				foreach($retorno as $dado)
-				{
-					echo "
+<?php
+	date_default_timezone_set("America/Sao_Paulo");
+	require_once "vendor/autoload.php";
+	$mpdf = new Mpdf/Mpdf();
+	
+	$header = "<h1>Agendas</h1>";
+	
+	$header .= "<br><br>" . date("d/m/Y");
+	
+	$body = "<br><br>
+				<table>
 					<tr>
-						<td>{$dado->id_agenda}</td>
-						<td>{$dado->data_agenda}</td>
-						<td>{$dado->horario}</td>	  
-						<td>{$dado->servico->getIdServico()}</td>
-						<td>{$dado->servico->getDescritivo()}</td>
-						<td>{$dado->servico->getPreco()}</td>
-						<td>{$dado->servico->getTipo()->getIdTipo()}</td>
-						<td>{$dado->servico->getTipo()->getDescritivo()}</td>
-						<td>{$dado->cliente->getIdCliente()}</td>
-						<td>{$dado->cliente->getNome()}</td>
-						<td>{$dado->cliente->getCelular()}</td>
+						<th>Agenda</th>			
+						<th>Serviço</th>			
+						<th>Cliente</th>			
+						<th>Data</th>			
+						<th>Horário</th>		
 					</tr>";
-				}
-			?>
-		</table>
-	</body>
-</html>
+	foreach($retorno as $dado)
+	{
+		$body .= "<tr>
+					<td>{$dado -> idAgenda}</td>
+					<td>{$dado -> idServico}</td>
+					<td>{$dado -> idCliente}</td>
+					<td>{$dado -> data_agenda}</td>
+					<td>{$dado -> horario}</td>
+				</tr>";
+	}
+	$body .= "</table>";
+	
+	$html = $header . $body;
+	
+	$mpdf->WriteHTML($html);
+	$mpdf->Output();
+?>

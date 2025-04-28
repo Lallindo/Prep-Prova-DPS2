@@ -58,12 +58,11 @@
         }
 
         public function inserir_agenda(Agenda $agenda) {
-            $sql = "INSERT INTO agenda (idAgenda, idServico, idCliente, data_agenda, horario) VALUES (:idAgenda, :idServico, :idCliente, :data_agenda, :horario);";
+            $sql = "INSERT INTO agenda (idServico, idCliente, data_agenda, horario) VALUES (:idServico, :idCliente, :data_agenda, :horario);";
             try
             {
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([
-                    "idAgenda" => $agenda->getIdAgenda(),
                     "idServico" => $agenda->getServico()->getIdServico(),
                     "idCliente" => $agenda->getCliente()->getIdCliente(),
                     "data_agenda" => $agenda->getDataAgenda(),
@@ -76,5 +75,21 @@
                 die("Erro ao inserir agenda id " . $agenda->getIdAgenda());
             }
         }
+
+        public function buscar_dados_pdf($curso)
+		{
+			$sql = "SELECT * FROM agenda";
+			try
+			{
+				$stm = $this->db->prepare($sql);
+				$stm->bindValue(1, $curso->getId_curso());
+				$stm->execute();
+				return $stm->fetchAll(PDO::FETCH_OBJ);
+			}
+			catch(PDOException $e)
+			{
+				die("Problema ao buscar dados para o pdf");
+			}
+		}
     }
 ?>

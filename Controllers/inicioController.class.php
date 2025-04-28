@@ -11,7 +11,7 @@
 
 			$ul->setElemento(new li([new a("/prep-prova/listar-tipos", "Tipos")])); 
 
-			$ul->setElemento(new li([new a("/prep-prova/grafico-pizza", "Gráfico de Pizza")])); 
+			$ul->setElemento(new li([new a("/prep-prova/grafico", "Gráfico de Pizza")])); 
 			
 			require_once "Views/menu.php";
 		}
